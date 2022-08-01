@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--1.导入spring的坐标spring-context，对应的版本是5.2.10.RELEASE-->
+
+    <!--2.配置bean-->
+    <!--bean标签表示配置bean-->
+    <!--id属性表示给bean起名字-->
+    <!--class属性表示给bean定义类型-->
+    <bean id="bookDao" class="com.bdm.dao.impl.BookDaoImpl"/>
+
+<!--     自动装配 autowire-->
+    <bean id="bookService" class="com.bdm.service.impl.BookServiceImpl" autowire="byType">
+<!--        &lt;!&ndash;配置server 与 dao 关系&ndash;&gt;-->
+<!--        &lt;!&ndash;property 标签表示当前bean的属性&ndash;&gt;-->
+<!--        &lt;!&ndash;name 属性表示配置哪一个具体的属性-->
+<!--        ref 属性表示参照哪一个bean&ndash;&gt;-->
+<!--        <property name="bookDao" ref="bookDao">-->
+<!--        </property>-->
+
+    </bean>
+
+    <!--使用静态工厂实例化bean-->
+    <bean id="orderDao" class="com.bdm.factory.OrderDaoFactory" factory-method="getOrderDao" />
+
+    <!--使用FactoryBean实例化bean-->
+    <bean id="userDao" class="com.bdm.factory.UserDaoFactoryBean" />
+
+    <!--使用实例工厂实例化bean-->
+    <!--factory-bean 为工厂的对象-->
+    <!--factory-method 为工厂的对象的方法-->
+    <bean id="userFactory" class="com.bdm.factory.UserDaoFactory"/>
+    <bean id="userDao1" factory-method="getOrderDao" factory-bean="userFactory" />
+
+
+
+</beans>
